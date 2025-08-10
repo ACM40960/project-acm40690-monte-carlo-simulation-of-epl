@@ -1,6 +1,8 @@
-![Project Logo](images/logo.png)
+<div align="center">
+  <img src="images/logo.png" alt="Project Logo" width="150" height="150" />
+  <h1> Premier League Monte Carlo — Bivariate Poisson + Elo</h1>
+</div>
 
-# Premier League Monte Carlo — Bivariate Poisson + Elo
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![NumPy](https://img.shields.io/badge/NumPy-Latest-blue)
