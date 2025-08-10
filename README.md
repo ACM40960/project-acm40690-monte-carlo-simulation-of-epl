@@ -1,4 +1,4 @@
-![Project Logo](images/Monte-carlo-img.png)
+![Project Logo](images/logo.png)
 
 # Premier League Monte Carlo — Bivariate Poisson + Elo
 
