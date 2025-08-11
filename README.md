@@ -13,7 +13,7 @@
 ![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey)
 ![Stars](https://img.shields.io/github/stars/your-org/your-repo?style=social)
 
-A notebook/script that models football matches with a **Bivariate Poisson** (shared component) and uses **Elo** as a covariate, then runs **Monte Carlo** to produce full-season distributions (points, positions, title/top-4/relegation probabilities). Includes lightweight backtesting.
+A **Jupyter notebook** (`Final_Project.ipynb`) that models football matches with a **Bivariate Poisson** (shared component) and uses **Elo** as a covariate, then runs **Monte Carlo** to produce full-season distributions (points, positions, title/top-4/relegation probabilities). Includes lightweight backtesting.
 
 ---
 
@@ -61,17 +61,16 @@ your-repo/
 ├── points/
 │   ├── epl_2022_23_points.csv
 │   └── epl_2023_24_points.csv
-├── images/                 # optional: saved figures / logo
+├── images/
 │   ├── heatmap.png
 │   ├── boxplot.png
 │   └── outcomes.png
-├── trial_project.ipynb     # notebook (optional; mirrors the script)
-├── trial_project.py        # ★ main script with CLI entrypoint
+├── Final_Project.ipynb     # ★ main notebook
 ├── README.md
 └── LICENSE
 ```
 
-> Adjust file names if yours differ; the script reads the lists declared at the top (see [Configuration](#configuration)).
+> Adjust file names if yours differ; the notebook reads the lists declared in the first config cell (see [Configuration](#configuration)).
 
 ---
 
@@ -122,7 +121,7 @@ Date,HomeTeam,AwayTeam,FTHG,FTAG
 
 Backtest “actual points” files:
 
-- Columns: `Team,Points` (the script renames `Points` → `ActualPts` internally).
+- Columns: `Team,Points` (the notebook renames `Points` → `ActualPts` internally).
 ```csv
 Team,Points
 Manchester City,91
@@ -140,23 +139,16 @@ Backtest/forecast fixture files:
 
 ## Quickstart
 
-**Option A — Script (recommended for repeatable runs)**
+1. Open **`Final_Project.ipynb`** in Jupyter Lab/Notebook or VS Code.  
+2. Run all cells in order:
+   - Load & clean data  
+   - Compute Elo (with decay)  
+   - Fit Bivariate Poisson  
+   - Backtest (prints MAE)  
+   - Simulate future seasons  
+   - View plots inline
 
-```bash
-python trial_project.py
-```
-
-What it does:
-
-1. Loads training seasons (2019/20–2021/22).
-2. Builds Elo with decay, fits the bivariate Poisson model.
-3. Tunes hyper-parameters via backtests (22/23 and 23/24).
-4. Simulates future seasons (24/25 and 25/26), prints predicted tables, and shows plots.
-
-**Option B — Notebook**
-
-Open **`trial_project.ipynb`** and run cells top-to-bottom:
-- Load & clean data → Compute Elo → Fit model → Backtest → Simulate → Plot.
+> The notebook saves/loads from the repo root; run it from the project folder.
 
 ---
 
@@ -200,14 +192,14 @@ Open **`trial_project.ipynb`** and run cells top-to-bottom:
 - **Outcome probabilities** bars
   - `P(Title)`, `P(Top-4)`, `P(Relegation)`.
 
-If you save figures, a typical set might live in `images/`:
+If you save figures, place them under `images/`:
 - `boxplot.png`, `heatmap.png`, `outcomes.png`.
 
 ---
 
 ## Configuration
 
-All file paths and knobs live at the **top of `trial_project.py`** (and mirrored in the notebook):
+Edit the first **Config** cell in `Final_Project.ipynb` (example below mirrors the notebook variables):
 
 ```python
 from pathlib import Path
@@ -225,7 +217,7 @@ future_fixtures_csvs     = [DATA_DIR / "epl_24_25_fixtures.csv", DATA_DIR / "epl
 N_SIMS = 500
 ```
 
-Model / search defaults (inside the code):
+Model / search defaults (inside the notebook):
 
 - Elo decay: `0.995` (effective step ≈ `(1 - decay) * K`)
 - Search grids (for speed; expand for final tuning):
@@ -255,7 +247,7 @@ Model / search defaults (inside the code):
   In some environments, add `%matplotlib inline` at the top of a notebook.
 
 - **Paths / working directory**  
-  The script uses project-relative paths via `pathlib.Path`. Run from the repo root (`cd your-repo`) or adjust `ROOT`.
+  The notebook uses project-relative paths via `pathlib.Path`. Run from the repo root (`cd your-repo`) or adjust `ROOT`.
 
 - **Team name mismatches**  
   Make sure training, fixtures, and points files use identical team strings.
@@ -301,4 +293,5 @@ Released under the **MIT License**. See [LICENSE](LICENSE).
 
 ## Contact
 
-Questions or ideas? Open an issue or email **your.email@domain.com**.
+**Authors:** Anusha Sarla & Sanmesh Shintre  
+**Emails:** anusha.sarla@ucdconnect.ie · sanmesh.shintre@ucdconnect.ie
