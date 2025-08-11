@@ -69,3 +69,50 @@ your-repo/
 ├── README.md
 └── LICENSE
 ```
+## Installation
+Use a clean environment (venv or conda).
+```
+# clone
+git clone https://github.com/your-org/your-repo.git
+cd your-repo
+
+# venv (Python)
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+# macOS/Linux:
+# source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+Example requirements.txt:
+```
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+matplotlib>=3.7
+seaborn>=0.13
+jupyter
+pyprojroot>=0.3   # optional, for here()-style paths
+```
+
+## Data
+CSV columns expected (football-data style):
+
+Date (DD/MM/YYYY or parseable), HomeTeam, AwayTeam, FTHG (home goals), FTAG (away goals)
+
+Example:
+
+```csv
+Date,HomeTeam,AwayTeam,FTHG,FTAG
+10/08/2019,Liverpool,Norwich,4,1
+10/08/2019,West Ham,Man City,0,5
+```
+
+Backtest “actual points” files:
+```csv
+Team,Points
+Manchester City,91
+Arsenal,89
+...
+```
