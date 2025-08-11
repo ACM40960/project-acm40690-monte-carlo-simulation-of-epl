@@ -68,3 +68,4 @@ your-repo/
 ├── trial_project.ipynb     # ★ main notebook
 ├── README.md
 └── LICENSE
+```
