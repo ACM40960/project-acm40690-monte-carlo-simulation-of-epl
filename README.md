@@ -69,9 +69,12 @@ your-repo/
 ├── README.md
 └── LICENSE
 ```
-## Installation
+
+​## Installation
+
 Use a clean environment (venv or conda).
-```
+
+~~~bash
 # clone
 git clone https://github.com/your-org/your-repo.git
 cd your-repo
@@ -82,11 +85,13 @@ python -m venv .venv
 .venv\Scripts\activate
 # macOS/Linux:
 # source .venv/bin/activate
+
 python -m pip install --upgrade pip
 pip install -r requirements.txt
-```
-Example requirements.txt:
-```
+~~~
+
+**Example `requirements.txt`:**
+~~~txt
 numpy>=1.24
 pandas>=2.0
 scipy>=1.10
@@ -94,25 +99,73 @@ matplotlib>=3.7
 seaborn>=0.13
 jupyter
 pyprojroot>=0.3   # optional, for here()-style paths
-```
+~~~
+
+---
 
 ## Data
+
 CSV columns expected (football-data style):
 
-Date (DD/MM/YYYY or parseable), HomeTeam, AwayTeam, FTHG (home goals), FTAG (away goals)
+- `Date` (DD/MM/YYYY or parseable), `HomeTeam`, `AwayTeam`, `FTHG` (home goals), `FTAG` (away goals)
 
 Example:
-
-```csv
+~~~csv
 Date,HomeTeam,AwayTeam,FTHG,FTAG
 10/08/2019,Liverpool,Norwich,4,1
 10/08/2019,West Ham,Man City,0,5
-```
+~~~
 
 Backtest “actual points” files:
-```csv
+~~~csv
 Team,Points
 Manchester City,91
 Arsenal,89
 ...
-```
+~~~
+
+Update the file lists at the top of the notebook/script (training, backtests, future fixtures).
+
+---
+
+## Quickstart
+
+1. Open **`trial_project.ipynb`** in VS Code/Jupyter Lab/Notebook.  
+2. Run cells top-to-bottom:
+   - Load & clean data  
+   - Compute Elo (with decay)  
+   - Fit Bivariate Poisson  
+   - Backtest (prints MAE)  
+   - Simulate future seasons  
+   - View plots inline
+
+> Prefer a script? Run `python trial_project.py`. You can export the notebook to `.py` via *File → Save and Export As*.
+
+---
+
+## What the Notebook Does
+
+- **Data engineering**: parse dates, cast goals to int, sort by date.  
+- **Elo (decay)**: writes `HomeElo` / `AwayElo` per match; returns final team Elo.  
+- **Model fit**:
+  - team attack/defence + home advantage, shared component \( \lambda_3 \)  
+  - ridge penalty on (α, β)  
+  - Elo ratio \( (\text{Elo}_h/\text{Elo}_a)^\gamma \) enters \( \lambda_1, \lambda_2 \)  
+- **Backtests**: simulate past seasons; compute **MAE** vs. actual points.  
+- **Projections**: simulate future fixtures with **N** Monte Carlo seasons.
+
+---
+
+## Outputs & Visualizations
+
+- **Predicted table** (median points)  
+- **Points distribution** per team (horizontal **boxplots**)  
+- **Finish-position probability heatmap**
+  - Single hue (“Blues”): **dark = higher probability**  
+  - Positions 1…N left→right; best teams at the **top**  
+- **Outcome probabilities**
+  - `P(Title)`, `P(Top-4)`, `P(Relegation)` horizontal bars
+
+*Example (optional if you save figures):*
+```markdown
+
