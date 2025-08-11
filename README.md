@@ -167,5 +167,76 @@ Update the file lists at the top of the notebook/script (training, backtests, fu
   - `P(Title)`, `P(Top-4)`, `P(Relegation)` horizontal bars
 
 *Example (optional if you save figures):*
-```markdown
+## Configuration
+
+Minimal grid kept small for speed during development; expand for final tuning.
+
+\```python
+# example defaults inside the notebook/script
+K = 40            # Elo K-factor
+gamma = 0.06      # Elo exponent for λ1/λ2 scaling
+lambda_ridge = 0.02
+decay = 0.995     # effective Elo step ≈ (1 - decay) * K
+N_SIMS = 1000     # Monte Carlo seasons (100–200 for quick runs)
+\```
+
+**Tips**
+- Runtime scales roughly **linearly** with `N_SIMS`.
+- Keep `N_SIMS` small while iterating; bump for final figures.
+
+---
+
+## Troubleshooting
+
+- **Seaborn deprecation (`sns.set`)** → use:
+  \```python
+  import seaborn as sns
+  sns.set_theme(style="whitegrid", rc={"figure.dpi": 120})
+  \```
+- **Pandas FutureWarning (`observed` in `pivot_table`)** → pass `observed=False` or use `.pivot()` instead of `.pivot_table()`.
+- **Plots don’t show** → in some setups add `%matplotlib inline` at the top of the notebook.
+- **Paths/working dir** → build paths from a project root (e.g., `pyprojroot.here()` or `pathlib.Path.cwd()`), or run `cd your-repo` before `python trial_project.py`.
+
+---
+
+## Roadmap / Future Work
+
+- Dixon–Coles time decay in the likelihood (down-weight older games).
+- More covariates: injuries, transfers, schedule congestion (rest days).
+- Bayesian variants / hierarchical priors for team effects and shared component.
+- Calibration checks (50/80/95% interval coverage) + reliability plots.
+- Broader training window / cross-league support.
+
+---
+
+## Citing & Background
+
+- Dixon & Coles (1997), *JRSS C* 46(2): 265–280 — football score modelling with correlated goals.
+
+If this repo helps you, please ⭐ the project.
+
+---
+
+## Contributing
+
+PRs welcome — loaders, metrics (rank corr, Brier), visual polish, or tuning refactors.
+
+**Steps**
+1. Fork  
+2. Create a branch  
+3. Commit changes with examples  
+4. Open a PR
+
+---
+
+## License
+
+Released under the **MIT License**. See [LICENSE](LICENSE).
+
+---
+
+## Contact
+
+Questions or ideas? Open an issue or email **your.email@domain.com**.
+
 
