@@ -1,8 +1,7 @@
 <div align="center">
   <img src="images/logo.png" alt="Project Logo" width="150" height="150" />
-  <h1> Premier League Monte Carlo — Bivariate Poisson + Elo</h1>
+  <h1>Premier League Monte Carlo — Bivariate Poisson + Elo</h1>
 </div>
-
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![NumPy](https://img.shields.io/badge/NumPy-Latest-blue)
@@ -14,7 +13,7 @@
 ![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey)
 ![Stars](https://img.shields.io/github/stars/your-org/your-repo?style=social)
 
-A Jupyter notebook (`trial_project.ipynb`) that models football matches with a **Bivariate Poisson** (shared component) and uses **Elo** as a covariate, then runs **Monte Carlo** to produce full-season distributions (points, positions, title/top-4/relegation probabilities). Includes lightweight backtesting.
+A notebook/script that models football matches with a **Bivariate Poisson** (shared component) and uses **Elo** as a covariate, then runs **Monte Carlo** to produce full-season distributions (points, positions, title/top-4/relegation probabilities). Includes lightweight backtesting.
 
 ---
 
@@ -25,7 +24,7 @@ A Jupyter notebook (`trial_project.ipynb`) that models football matches with a *
 3. [Installation](#installation)  
 4. [Data](#data)  
 5. [Quickstart](#quickstart)  
-6. [What the Notebook Does](#what-the-notebook-does)  
+6. [What It Does](#what-it-does)  
 7. [Outputs & Visualizations](#outputs--visualizations)  
 8. [Configuration](#configuration)  
 9. [Troubleshooting](#troubleshooting)  
@@ -40,10 +39,10 @@ A Jupyter notebook (`trial_project.ipynb`) that models football matches with a *
 ## Overview
 
 - **Scoring model:** Bivariate Poisson with a shared latent component \( \lambda_3 \) to capture goal dependence.  
-- **Team effects:** attack (α), defence (β), home advantage (η) with ridge regularization and sum-to-zero constraints.  
-- **Elo with decay:** pre-match HomeElo/AwayElo; Elo ratio scales goal rates via exponent **γ**.  
+- **Team effects:** attack (α), defence (β), home advantage (η) with **ridge** regularization and sum-to-zero constraints on α and β.  
+- **Elo with decay:** pre-match `HomeElo` / `AwayElo`; Elo ratio scales goal rates via exponent **γ**.  
 - **Monte Carlo:** simulate full seasons to estimate distributions over points, positions, and key outcomes.  
-- **Backtests:** compare simulated mean points vs. actual to get MAE.
+- **Backtests:** compare simulated mean points vs actual to get **MAE**, using past fixtures and points tables.
 
 ---
 
@@ -55,31 +54,37 @@ your-repo/
 │   ├── E0_19_20.csv
 │   ├── E0_20_21.csv
 │   ├── E0_21_22.csv
-│   ├── E0_22_23.csv
-│   ├── E0_23_24.csv
-│   └── E0_24_25.csv
+│   ├── epl_22_23_fixtures.csv
+│   ├── epl_23_24_fixtures.csv
+│   ├── epl_24_25_fixtures.csv
+│   └── epl_25_26_fixtures.csv
 ├── points/
-│   ├── epl_2021_22_points.csv
-│   └── epl_2022_23_points.csv
-├── images/                 # optional: for README examples
+│   ├── epl_2022_23_points.csv
+│   └── epl_2023_24_points.csv
+├── images/                 # optional: saved figures / logo
 │   ├── heatmap.png
 │   ├── boxplot.png
 │   └── outcomes.png
-├── trial_project.ipynb     # ★ main notebook
+├── trial_project.ipynb     # notebook (optional; mirrors the script)
+├── trial_project.py        # ★ main script with CLI entrypoint
 ├── README.md
 └── LICENSE
 ```
 
-​## Installation
+> Adjust file names if yours differ; the script reads the lists declared at the top (see [Configuration](#configuration)).
+
+---
+
+## Installation
 
 Use a clean environment (venv or conda).
 
-~~~bash
+```bash
 # clone
 git clone https://github.com/your-org/your-repo.git
 cd your-repo
 
-# venv (Python)
+# create & activate venv
 python -m venv .venv
 # Windows:
 .venv\Scripts\activate
@@ -88,97 +93,145 @@ python -m venv .venv
 
 python -m pip install --upgrade pip
 pip install -r requirements.txt
-~~~
+```
 
 **Example `requirements.txt`:**
-~~~txt
+```txt
 numpy>=1.24
 pandas>=2.0
 scipy>=1.10
 matplotlib>=3.7
 seaborn>=0.13
 jupyter
-pyprojroot>=0.3   # optional, for here()-style paths
-~~~
+```
 
 ---
 
 ## Data
 
-CSV columns expected (football-data style):
+We use football-data style match CSVs with:
 
 - `Date` (DD/MM/YYYY or parseable), `HomeTeam`, `AwayTeam`, `FTHG` (home goals), `FTAG` (away goals)
 
 Example:
-~~~csv
+```csv
 Date,HomeTeam,AwayTeam,FTHG,FTAG
 10/08/2019,Liverpool,Norwich,4,1
 10/08/2019,West Ham,Man City,0,5
-~~~
+```
 
 Backtest “actual points” files:
-~~~csv
+
+- Columns: `Team,Points` (the script renames `Points` → `ActualPts` internally).
+```csv
 Team,Points
 Manchester City,91
 Arsenal,89
 ...
-~~~
+```
 
-Update the file lists at the top of the notebook/script (training, backtests, future fixtures).
+Backtest/forecast fixture files:
+
+- Columns: `HomeTeam,AwayTeam` (no dates required for simulation).
+
+> **Name consistency:** Ensure team names match across *all* files (training, fixtures, points). Simple mismatches (“Man City” vs “Manchester City”) will degrade results.
 
 ---
 
 ## Quickstart
 
-1. Open **`trial_project.ipynb`** in VS Code/Jupyter Lab/Notebook.  
-2. Run cells top-to-bottom:
-   - Load & clean data  
-   - Compute Elo (with decay)  
-   - Fit Bivariate Poisson  
-   - Backtest (prints MAE)  
-   - Simulate future seasons  
-   - View plots inline
+**Option A — Script (recommended for repeatable runs)**
 
-> Prefer a script? Run `python trial_project.py`. You can export the notebook to `.py` via *File → Save and Export As*.
+```bash
+python trial_project.py
+```
+
+What it does:
+
+1. Loads training seasons (2019/20–2021/22).
+2. Builds Elo with decay, fits the bivariate Poisson model.
+3. Tunes hyper-parameters via backtests (22/23 and 23/24).
+4. Simulates future seasons (24/25 and 25/26), prints predicted tables, and shows plots.
+
+**Option B — Notebook**
+
+Open **`trial_project.ipynb`** and run cells top-to-bottom:
+- Load & clean data → Compute Elo → Fit model → Backtest → Simulate → Plot.
 
 ---
 
-## What the Notebook Does
+## What It Does
 
-- **Data engineering**: parse dates, cast goals to int, sort by date.  
-- **Elo (decay)**: writes `HomeElo` / `AwayElo` per match; returns final team Elo.  
-- **Model fit**:
-  - team attack/defence + home advantage, shared component \( \lambda_3 \)  
-  - ridge penalty on (α, β)  
-  - Elo ratio \( (\text{Elo}_h/\text{Elo}_a)^\gamma \) enters \( \lambda_1, \lambda_2 \)  
-- **Backtests**: simulate past seasons; compute **MAE** vs. actual points.  
-- **Projections**: simulate future fixtures with **N** Monte Carlo seasons.
+- **Data engineering**
+  - Parse dates, cast goals to `int`, sort chronologically.
+  - Collect all unique teams from training + fixture files to ensure complete parameter vectors.
+
+- **Elo (with decay)**
+  - Baseline 1500 per team; update per match with
+    - K-factor grid (e.g., 20/30/40), decay factor (e.g., 0.995).
+  - Expected home result \( E_h=\frac{1}{1+10^{(R_a-R_h)/400}} \); update both teams with a decayed step.
+
+- **Model fit (Bivariate Poisson)**
+  - For match \( (h,a) \):
+    - \( \lambda_1 = \exp(\alpha_h - \beta_a + \eta_h)\cdot(\text{Elo}_h/\text{Elo}_a)^\gamma \)
+    - \( \lambda_2 = \exp(\alpha_a - \beta_h)\cdot(\text{Elo}_h/\text{Elo}_a)^{-\gamma} \)
+    - \( \lambda_3 = \exp(\theta) \) shared component
+  - Penalized log-likelihood with ridge on \( \alpha,\beta \), fitted via **BFGS** with zero-mean constraints on \( \alpha \) and \( \beta \).
+
+- **Hyper-parameter search**
+  - Small grid for speed: `K ∈ {20,30,40}`, `γ ∈ {0.04,0.06}`, `λ_ridge = 0.02`.
+  - Backtests on two seasons; objective = average **MAE** between simulated mean points and actual points.
+
+- **Monte Carlo**
+  - Sample k ~ Poisson(λ3), x ~ Poisson(λ1), y ~ Poisson(λ2); score = (x+k, y+k).
+  - Simulate each fixture list **N** times; aggregate to points tables and rank distributions.
+
+- **Reproducibility**
+  - Simulation RNGs seeded: `_rng = np.random.default_rng(1)` for match sims; a separate `default_rng(0)` for tie-break jitter in ranking.
 
 ---
 
 ## Outputs & Visualizations
 
-- **Predicted table** (median points)  
-- **Points distribution** per team (horizontal **boxplots**)  
+- **Predicted table** (printed): median simulated points for the current league cohort.
+- **Points distribution** per team: horizontal **boxplots**.
 - **Finish-position probability heatmap**
-  - Single hue (“Blues”): **dark = higher probability**  
-  - Positions 1…N left→right; best teams at the **top**  
-- **Outcome probabilities**
-  - `P(Title)`, `P(Top-4)`, `P(Relegation)` horizontal bars
+  - Positions 1…N left→right; **darker** = higher probability; best teams at the **top**.
+- **Outcome probabilities** bars
+  - `P(Title)`, `P(Top-4)`, `P(Relegation)`.
 
-*Example (optional if you save figures):*
+If you save figures, a typical set might live in `images/`:
+- `boxplot.png`, `heatmap.png`, `outcomes.png`.
+
+---
+
 ## Configuration
 
-Minimal grid kept small for speed during development; expand for final tuning.
+All file paths and knobs live at the **top of `trial_project.py`** (and mirrored in the notebook):
 
-\```python
-# example defaults inside the notebook/script
-K = 40            # Elo K-factor
-gamma = 0.06      # Elo exponent for λ1/λ2 scaling
-lambda_ridge = 0.02
-decay = 0.995     # effective Elo step ≈ (1 - decay) * K
-N_SIMS = 1000     # Monte Carlo seasons (100–200 for quick runs)
-\```
+```python
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent if "__file__" in globals() else Path.cwd().resolve()
+DATA_DIR   = ROOT / "data"
+POINTS_DIR = ROOT / "points"
+
+training_csvs = [DATA_DIR / "E0_19_20.csv", DATA_DIR / "E0_20_21.csv", DATA_DIR / "E0_21_22.csv"]
+backtest_fixtures_csvs   = [DATA_DIR / "epl_22_23_fixtures.csv", DATA_DIR / "epl_23_24_fixtures.csv"]
+backtest_actual_pts_csvs = [POINTS_DIR / "epl_2022_23_points.csv", POINTS_DIR / "epl_2023_24_points.csv"]
+future_fixtures_csvs     = [DATA_DIR / "epl_24_25_fixtures.csv", DATA_DIR / "epl_25_26_fixtures.csv"]
+
+# Monte Carlo simulations per season
+N_SIMS = 500
+```
+
+Model / search defaults (inside the code):
+
+- Elo decay: `0.995` (effective step ≈ `(1 - decay) * K`)
+- Search grids (for speed; expand for final tuning):
+  - `K ∈ {20, 30, 40}`
+  - `γ ∈ {0.04, 0.06}`
+  - `λ_ridge = 0.02`
 
 **Tips**
 - Runtime scales roughly **linearly** with `N_SIMS`.
@@ -188,30 +241,41 @@ N_SIMS = 1000     # Monte Carlo seasons (100–200 for quick runs)
 
 ## Troubleshooting
 
-- **Seaborn deprecation (`sns.set`)** → use:
-  \```python
+- **Seaborn theming**  
+  Use:
+  ```python
   import seaborn as sns
   sns.set_theme(style="whitegrid", rc={"figure.dpi": 120})
-  \```
-- **Pandas FutureWarning (`observed` in `pivot_table`)** → pass `observed=False` or use `.pivot()` instead of `.pivot_table()`.
-- **Plots don’t show** → in some setups add `%matplotlib inline` at the top of the notebook.
-- **Paths/working dir** → build paths from a project root (e.g., `pyprojroot.here()` or `pathlib.Path.cwd()`), or run `cd your-repo` before `python trial_project.py`.
+  ```
+
+- **Pandas `observed` warning**  
+  For `pivot_table`, pass `observed=False` (already set), or switch to `.pivot()` if categories are fixed.
+
+- **Plots not showing**  
+  In some environments, add `%matplotlib inline` at the top of a notebook.
+
+- **Paths / working directory**  
+  The script uses project-relative paths via `pathlib.Path`. Run from the repo root (`cd your-repo`) or adjust `ROOT`.
+
+- **Team name mismatches**  
+  Make sure training, fixtures, and points files use identical team strings.
 
 ---
 
 ## Roadmap / Future Work
 
-- Dixon–Coles time decay in the likelihood (down-weight older games).
+- Dixon–Coles **time decay** in the likelihood (down-weight older matches).
 - More covariates: injuries, transfers, schedule congestion (rest days).
-- Bayesian variants / hierarchical priors for team effects and shared component.
-- Calibration checks (50/80/95% interval coverage) + reliability plots.
-- Broader training window / cross-league support.
+- Bayesian / hierarchical variants for team effects and \( \lambda_3 \).
+- Calibration checks (50/80/95% interval coverage) & reliability plots.
+- Expanded hyper-parameter search and cross-league support.
 
 ---
 
 ## Citing & Background
 
-- Dixon & Coles (1997), *JRSS C* 46(2): 265–280 — football score modelling with correlated goals.
+- Dixon & Coles (1997). *Modelling Association Football Scores and Inefficiencies in the Football Betting Market*. **JRSS C** 46(2): 265–280. DOI: **10.2307/2986290**.  
+- Related reading: https://royalsocietypublishing.org/doi/10.1098/rsos.210617
 
 If this repo helps you, please ⭐ the project.
 
@@ -238,5 +302,3 @@ Released under the **MIT License**. See [LICENSE](LICENSE).
 ## Contact
 
 Questions or ideas? Open an issue or email **your.email@domain.com**.
-
-
