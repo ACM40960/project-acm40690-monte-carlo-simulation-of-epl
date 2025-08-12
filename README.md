@@ -194,7 +194,7 @@ Backtest/forecast fixture files:
 
 
 - ![Points distribution boxplots](images/points_boxplot_output.png)
-- ![Finish-position probability heatmap](images/probability_output.png)
+- ![Finish-position probability heatmap](images/heatmap.png)
 - ![Outcome probabilities](images/relegation_output.png)
 ---
 
