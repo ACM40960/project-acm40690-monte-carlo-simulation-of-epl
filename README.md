@@ -1,6 +1,6 @@
 <div align="center">
   <img src="images/logo.png" alt="Project Logo" width="150" height="150" />
-  <h1>Premier League Monte Carlo Simulation — Bivariate Poisson + Elo</h1>
+  <h1>Monte Carlo Simulation of English Premier League — using Bivariate Poisson + Elo</h1>
 </div>
 
 ![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue)
@@ -188,7 +188,7 @@ Backtest/forecast fixture files:
 - The bars showing the outcome probabilities are `P(Title)`, `P(Top-4)`, and `P(Relegation)`.
 
 
-- The points of teams in boxplot after simulation.
+- The boxplot output of team points after simulation.
 ![Points distribution boxplots](images/points_boxplot_output.png)
 - Finishing probability of teams after simulation.
 ![Finish-position probability heatmap](images/heatmap.png)
