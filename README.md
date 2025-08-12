@@ -27,7 +27,9 @@ Using a **Bivariate Poisson** (shared component) to model football matches and *
 8. [Configuration](#configuration)  
 9. [Troubleshooting](#troubleshooting)  
 10. [Roadmap / Future Work](#roadmap--future-work)  
-11. [Citing & Background](#citing--background)  
+11. [References & Data](#references--data)
+    - [Citing & Background](#citing--background)
+    - [Data Sources](#data-sources)
 12. [Contributing](#contributing)  
 13. [License](#license)  
 14. [Contact](#contact)
@@ -262,11 +264,17 @@ Model / search defaults (inside the notebook):
 - Expanded hyper-parameter search and cross-league support.
 
 ---
+## References & Data
 
-## Citing & Background
-
+### Citing & Background
 - Dixon & Coles (1997). *Modelling Association Football Scores and Inefficiencies in the Football Betting Market*. **JRSS C** 46(2): 265–280. DOI: **10.2307/2986290**.  
 - Related reading: https://royalsocietypublishing.org/doi/10.1098/rsos.210617
+
+### Data Sources
+- [Football-Data.co.uk — England (EPL) match results & odds](https://www.football-data.co.uk/englandm.php)
+- [Fixture Download — Premier League results/fixtures 2024–25](https://fixturedownload.com/results/epl-2025)
+
+*Accessed: August 12, 2025. Check each site’s terms before redistribution.*
 
 ---
 
