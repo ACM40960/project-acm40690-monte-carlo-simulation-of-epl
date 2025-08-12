@@ -23,16 +23,17 @@ Using a **Bivariate Poisson** (shared component) to model football matches and *
 4. [Data](#data)  
 5. [Quickstart](#quickstart)  
 6. [What It Does](#what-it-does)  
-7. [Outputs & Visualizations](#outputs--visualizations)  
-8. [Configuration](#configuration)  
-9. [Troubleshooting](#troubleshooting)  
-10. [Roadmap / Future Work](#roadmap--future-work)  
-11. [References & Data](#references--data)
+7. [Outputs & Visualizations](#outputs--visualizations)
+8. [Project Poster](#project-poster)
+9. [Configuration](#configuration)  
+10. [Troubleshooting](#troubleshooting)  
+11. [Roadmap / Future Work](#roadmap--future-work)  
+12. [References & Data](#references--data)
     - [Citing & Background](#citing--background)
     - [Data Sources](#data-sources)
-12. [Contributing](#contributing)  
-13. [License](#license)  
-14. [Contact](#contact)
+13. [Contributing](#contributing)  
+14. [License](#license)  
+15. [Contact](#contact)
 
 ---
 
@@ -197,7 +198,12 @@ Backtest/forecast fixture files:
 - The chances of team getting relegated/title/top 4.
 ![Outcome probabilities](images/relegation_output.png)
 ---
+---
+## Project Poster
 
+📄 [View the poster (PDF)](Poster.pdf)
+
+---
 ## Configuration
 
 Edit the first **Config** cell in `Final_Project.ipynb` (example below mirrors the notebook variables):
