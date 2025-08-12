@@ -1,17 +1,15 @@
 <div align="center">
   <img src="images/logo.png" alt="Project Logo" width="150" height="150" />
-  <h1>Premier League Monte Carlo — Bivariate Poisson + Elo</h1>
+  <h1>Premier League Monte Carlo Simulation — Bivariate Poisson + Elo</h1>
 </div>
 
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![NumPy](https://img.shields.io/badge/NumPy-Latest-blue)
 ![Pandas](https://img.shields.io/badge/Pandas-Latest-blue)
 ![SciPy](https://img.shields.io/badge/SciPy-Latest-blue)
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-Latest-blue)
 ![Seaborn](https://img.shields.io/badge/Seaborn-Latest-blue)
-![License](https://img.shields.io/badge/License-MIT-brightgreen)
-![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey)
-![Stars](https://img.shields.io/github/stars/your-org/your-repo?style=social)
+
 
 A **Jupyter notebook** (`Final_Project.ipynb`) that models football matches with a **Bivariate Poisson** (shared component) and uses **Elo** as a covariate, then runs **Monte Carlo** to produce full-season distributions (points, positions, title/top-4/relegation probabilities). Includes lightweight backtesting.
 
@@ -63,14 +61,12 @@ project-acm40690-monte-carlo-simulation-of-epl/
 │   └── epl_2023_24_points.csv
 ├── images/
 │   ├── heatmap.png
-│   ├── boxplot.png
-│   └── outcomes.png
-├── Final_Project.ipynb     # ★ main notebook
+│   ├── points_boxplot_output.png
+│   └── relegation_output.png
+├── Final_Project.ipynb     # main notebook
 ├── README.md
 └── LICENSE
 ```
-
-> Adjust file names if yours differ; the notebook reads the lists declared in the first config cell (see [Configuration](#configuration)).
 
 ---
 
@@ -121,7 +117,7 @@ Date,HomeTeam,AwayTeam,FTHG,FTAG
 
 Backtest “actual points” files:
 
-- Columns: `Team,Points` (the notebook renames `Points` → `ActualPts` internally).
+- Columns: `Team,Points` (the notebook renames `Points` -> `ActualPts` internally).
 ```csv
 Team,Points
 Manchester City,91
@@ -193,9 +189,12 @@ Backtest/forecast fixture files:
   - `P(Title)`, `P(Top-4)`, `P(Relegation)`.
 
 
-- ![Points distribution boxplots](images/points_boxplot_output.png)
-- ![Finish-position probability heatmap](images/heatmap.png)
-- ![Outcome probabilities](images/relegation_output.png)
+- The points of teams in boxplot after simulation.
+ ![Points distribution boxplots](images/points_boxplot_output.png)
+- Finishing probability of teams after simulation.
+![Finish-position probability heatmap](images/heatmap.png)
+- The chances of team getting relegated/title/top 4.
+![Outcome probabilities](images/relegation_output.png)
 ---
 
 ## Configuration
