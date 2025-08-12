@@ -193,7 +193,7 @@ Backtest/forecast fixture files:
   - `P(Title)`, `P(Top-4)`, `P(Relegation)`.
 
 If you save figures, place them under `images/`:
-- `images/points_boxplot_output.png`, `images/probability_output.png`, `images/relagation_output.png`.
+- "images/points_boxplot_output.png", "images/probability_output.png", "images/relagation_output.png".
 
 ---
 
