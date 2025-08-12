@@ -49,7 +49,7 @@ A **Jupyter notebook** (`Final_Project.ipynb`) that models football matches with
 ## Project Structure
 
 ```plaintext
-your-repo/
+project-acm40690-monte-carlo-simulation-of-epl/
 ├── data/
 │   ├── E0_19_20.csv
 │   ├── E0_20_21.csv
@@ -192,9 +192,10 @@ Backtest/forecast fixture files:
 - **Outcome probabilities** bars
   - `P(Title)`, `P(Top-4)`, `P(Relegation)`.
 
-If you save figures, place them under `images/`:
-- "images/points_boxplot_output.png", "images/probability_output.png", "images/relagation_output.png".
 
+- ![Points distribution boxplots](images/points_boxplot_output.png)
+- ![Finish-position probability heatmap](images/probability_output.png)
+- ![Outcome probabilities](images/relegation_output.png)
 ---
 
 ## Configuration
