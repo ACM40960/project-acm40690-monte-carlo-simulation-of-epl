@@ -90,7 +90,7 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-**Example `requirements.txt`:**
+**Example `Requirements.txt`:**
 ```txt
 numpy>=1.24
 scipy>=1.10
