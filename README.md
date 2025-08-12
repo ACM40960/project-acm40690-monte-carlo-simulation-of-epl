@@ -11,7 +11,7 @@
 ![Seaborn](https://img.shields.io/badge/Seaborn-Latest-blue)
 
 
-A **Jupyter notebook** (`Final_Project.ipynb`) that models football matches with a **Bivariate Poisson** (shared component) and uses **Elo** as a covariate, then runs **Monte Carlo** to produce full-season distributions (points, positions, title/top-4/relegation probabilities). Includes lightweight backtesting.
+Using a **Bivariate Poisson** (shared component) to model football matches and **Elo** as a covariate, a **Jupyter notebook** (`Final_Project.ipynb`) then performs **Monte Carlo simulations** to generate full-season distributions (points, positions, title/top-4/relegation probabilities). Includes lightweight backtesting.
 
 ---
 
@@ -36,11 +36,11 @@ A **Jupyter notebook** (`Final_Project.ipynb`) that models football matches with
 
 ## Overview
 
-- **Scoring model:** Bivariate Poisson with a shared latent component \( \lambda_3 \) to capture goal dependence.  
+- **Scoring model:** To capture goal dependence, using a bivariate Poisson with a common latent component $$\lambda_3$$.  
 - **Team effects:** attack (α), defence (β), home advantage (η) with **ridge** regularization and sum-to-zero constraints on α and β.  
 - **Elo with decay:** pre-match `HomeElo` / `AwayElo`; Elo ratio scales goal rates via exponent **γ**.  
-- **Monte Carlo:** simulate full seasons to estimate distributions over points, positions, and key outcomes.  
-- **Backtests:** compare simulated mean points vs actual to get **MAE**, using past fixtures and points tables.
+- **Monte Carlo:** To simulate distributions over points, positions, and important outcomes, model entire seasons.
+- **Backtests:** Utilizing historical fixtures and points data, compare the simulated mean points to the actual to obtain **MAE**.
 
 ---
 
@@ -93,9 +93,9 @@ pip install -r requirements.txt
 **Example `requirements.txt`:**
 ```txt
 numpy>=1.24
-pandas>=2.0
 scipy>=1.10
 matplotlib>=3.7
+pandas>=2.0
 seaborn>=0.13
 jupyter
 ```
@@ -104,7 +104,7 @@ jupyter
 
 ## Data
 
-We use football-data style match CSVs with:
+We used football-data style match CSVs with:
 
 - `Date` (DD/MM/YYYY or parseable), `HomeTeam`, `AwayTeam`, `FTHG` (home goals), `FTAG` (away goals)
 
@@ -129,22 +129,22 @@ Backtest/forecast fixture files:
 
 - Columns: `HomeTeam,AwayTeam` (no dates required for simulation).
 
-> **Name consistency:** Ensure team names match across *all* files (training, fixtures, points). Simple mismatches (“Man City” vs “Manchester City”) will degrade results.
+>**Name consistency:** Verify that team names appear in *all* training, fixture, and point files.  Results will suffer from simple mismatches ("Man City" vs. "Manchester City").  To lessen these discrepancies, we made a few consistent manual adjustments to our CSV file.
 
 ---
 
 ## Quickstart
 
-1. Open **`Final_Project.ipynb`** in Jupyter Lab/Notebook or VS Code.  
-2. Run all cells in order:
+1. Open **`Final_Project.ipynb`** in Notebook/Jupyter Lab or VS Code.  
+2. Execute all cells in order:
    - Load & clean data  
    - Compute Elo (with decay)  
-   - Fit Bivariate Poisson  
-   - Backtest (prints MAE)  
+   - Fit Bivariate Poisson model 
+   - Backtest using fixtures & actual points (prints MAE)  
    - Simulate future seasons  
    - View plots inline
 
-> The notebook saves/loads from the repo root; run it from the project folder.
+> The notebook saves or loads from the repository root; run it from the project folder.
 
 ---
 
@@ -157,22 +157,22 @@ Backtest/forecast fixture files:
 - **Elo (with decay)**
   - Baseline 1500 per team; update per match with
     - K-factor grid (e.g., 20/30/40), decay factor (e.g., 0.995).
-  - Expected home result \( E_h=\frac{1}{1+10^{(R_a-R_h)/400}} \); update both teams with a decayed step.
+  - Expected home result $E_h = \frac{1}{1+10^{(R_a - R_h)/400}}$; update both teams with a decayed step.
 
 - **Model fit (Bivariate Poisson)**
-  - For match \( (h,a) \):
-    - \( \lambda_1 = \exp(\alpha_h - \beta_a + \eta_h)\cdot(\text{Elo}_h/\text{Elo}_a)^\gamma \)
-    - \( \lambda_2 = \exp(\alpha_a - \beta_h)\cdot(\text{Elo}_h/\text{Elo}_a)^{-\gamma} \)
-    - \( \lambda_3 = \exp(\theta) \) shared component
-  - Penalized log-likelihood with ridge on \( \alpha,\beta \), fitted via **BFGS** with zero-mean constraints on \( \alpha \) and \( \beta \).
+  - For match $(h,a)$:
+    - $$\lambda_1 = \exp(\alpha_h - \beta_a + \eta_h)\cdot\left(\frac{\mathrm{Elo}_h}{\mathrm{Elo}_a}\right)^{\gamma}$$
+    - $$\lambda_2 = \exp(\alpha_a - \beta_h)\cdot\left(\frac{\mathrm{Elo}_h}{\mathrm{Elo}_a}\right)^{-\gamma}$$
+    - $$\lambda_3 = \exp(\theta)$$ shared component
+  - Penalized log-likelihood with ridge on $\alpha,\beta$, fitted via **BFGS** with zero-mean constraints on $\alpha$ and $\beta$.
 
 - **Hyper-parameter search**
-  - Small grid for speed: `K ∈ {20,30,40}`, `γ ∈ {0.04,0.06}`, `λ_ridge = 0.02`.
+  - Small grid for speed: $K \in \{20,30,40\}$, $\gamma \in \{0.04,0.06\}$, $\lambda_{\text{ridge}} = 0.02$.
   - Backtests on two seasons; objective = average **MAE** between simulated mean points and actual points.
 
 - **Monte Carlo**
-  - Sample k ~ Poisson(λ3), x ~ Poisson(λ1), y ~ Poisson(λ2); score = (x+k, y+k).
-  - Simulate each fixture list **N** times; aggregate to points tables and rank distributions.
+  - Sample $k \sim \mathrm{Poisson}(\lambda_3)$, $x \sim \mathrm{Poisson}(\lambda_1)$, $y \sim \mathrm{Poisson}(\lambda_2)$; score $=(x+k,\; y+k)$.
+  - Simulate each fixture list $N$ times; aggregate to points tables and rank distributions.
 
 - **Reproducibility**
   - Simulation RNGs seeded: `_rng = np.random.default_rng(1)` for match sims; a separate `default_rng(0)` for tie-break jitter in ranking.
@@ -181,16 +181,15 @@ Backtest/forecast fixture files:
 
 ## Outputs & Visualizations
 
-- **Predicted table** (printed): median simulated points for the current league cohort.
-- **Points distribution** per team: horizontal **boxplots**.
-- **Finish-position probability heatmap**
-  - Positions 1…N left→right; **darker** = higher probability; best teams at the **top**.
-- **Outcome probabilities** bars
-  - `P(Title)`, `P(Top-4)`, `P(Relegation)`.
+- The median simulated points for the current league cohort are shown in the **Predicted table** (printed).
+- Each team's distribution of points is shown in a horizontal **boxplot**.
+- **Heatmap of finish-position probability**
+- The best teams are at the **top**; positions 1…N left→right; **darker** = higher likelihood.
+- The bars showing the outcome probabilities are `P(Title)`, `P(Top-4)`, and `P(Relegation)`.
 
 
 - The points of teams in boxplot after simulation.
- ![Points distribution boxplots](images/points_boxplot_output.png)
+![Points distribution boxplots](images/points_boxplot_output.png)
 - Finishing probability of teams after simulation.
 ![Finish-position probability heatmap](images/heatmap.png)
 - The chances of team getting relegated/title/top 4.
@@ -250,7 +249,7 @@ Model / search defaults (inside the notebook):
   The notebook uses project-relative paths via `pathlib.Path`. Run from the repo root (`cd your-repo`) or adjust `ROOT`.
 
 - **Team name mismatches**  
-  Make sure training, fixtures, and points files use identical team strings.
+  Make sure that training, fixtures, and points files use identical team names as strings.
 
 ---
 
@@ -269,8 +268,6 @@ Model / search defaults (inside the notebook):
 - Dixon & Coles (1997). *Modelling Association Football Scores and Inefficiencies in the Football Betting Market*. **JRSS C** 46(2): 265–280. DOI: **10.2307/2986290**.  
 - Related reading: https://royalsocietypublishing.org/doi/10.1098/rsos.210617
 
-If this repo helps you, please ⭐ the project.
-
 ---
 
 ## Contributing
@@ -278,10 +275,10 @@ If this repo helps you, please ⭐ the project.
 PRs welcome — loaders, metrics (rank corr, Brier), visual polish, or tuning refactors.
 
 **Steps**
-1. Fork  
-2. Create a branch  
-3. Commit changes with examples  
-4. Open a PR
+1. Fork.  
+2. Create a branch.  
+3. Commit changes with examples.
+4. Open a Pull Request.
 
 ---
 
