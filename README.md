@@ -37,7 +37,7 @@ Using a **Bivariate Poisson** (shared component) to model football matches and *
 
 ---
 
-## Overview
+## 🎯 Overview
 
 - **Scoring model:** To capture goal dependence, using a bivariate Poisson with a common latent component $$\lambda_3$$.  
 - **Team effects:** attack (α), defence (β), home advantage (η) with **ridge** regularization and sum-to-zero constraints on α and β.  
