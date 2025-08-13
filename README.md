@@ -37,7 +37,7 @@ Using a **Bivariate Poisson** (shared component) to model football matches and *
 
 ---
 
-## 🎯 Overview
+## 📜 Overview
 
 - **Scoring model:** To capture goal dependence, using a bivariate Poisson with a common latent component $$\lambda_3$$.  
 - **Team effects:** attack (α), defence (β), home advantage (η) with **ridge** regularization and sum-to-zero constraints on α and β.  
@@ -47,7 +47,7 @@ Using a **Bivariate Poisson** (shared component) to model football matches and *
 
 ---
 
-## Project Structure
+## 🗂️ Project Structure
 
 ```plaintext
 project-acm40690-monte-carlo-simulation-of-epl/
@@ -73,7 +73,7 @@ project-acm40690-monte-carlo-simulation-of-epl/
 
 ---
 
-## Installation
+## ⚙️ Installation
 
 Use a clean environment (venv or conda).
 
@@ -105,7 +105,7 @@ jupyter
 
 ---
 
-## Data
+## 📊 Data
 
 We used football-data style match CSVs with:
 
@@ -136,7 +136,7 @@ Backtest/forecast fixture files:
 
 ---
 
-## Quickstart
+## 🚀 Quickstart
 
 1. Open **`Final_Project.ipynb`** in Notebook/Jupyter Lab or VS Code.  
 2. Execute all cells in order:
@@ -151,7 +151,7 @@ Backtest/forecast fixture files:
 
 ---
 
-## What It Does
+## 🧠 What It Does
 
 - **Data engineering**
   - Parse dates, cast goals to `int`, sort chronologically.
@@ -182,7 +182,7 @@ Backtest/forecast fixture files:
 
 ---
 
-## Outputs & Visualizations
+## 📈 Outputs & Visualizations
 
 - The median simulated points for the current league cohort are shown in the **Predicted table** (printed).
 - Each team's distribution of points is shown in a horizontal **boxplot**.
@@ -199,12 +199,12 @@ Backtest/forecast fixture files:
 ![Outcome probabilities](images/relegation_output.png)
 ---
 ---
-## Project Poster
+## 🖼️ Project Poster
 
 📄 [View the poster (PDF)](Poster.pdf)
 
 ---
-## Configuration
+## 🔧 Configuration
 
 Edit the first **Config** cell in `Final_Project.ipynb` (example below mirrors the notebook variables):
 
@@ -238,7 +238,7 @@ Model / search defaults (inside the notebook):
 
 ---
 
-## Troubleshooting
+## 🛠️ Troubleshooting
 
 - **Seaborn theming**  
   Use:
@@ -261,7 +261,7 @@ Model / search defaults (inside the notebook):
 
 ---
 
-## Roadmap / Future Work
+## 🗺️ Roadmap / Future Work
 
 - Dixon–Coles **time decay** in the likelihood (down-weight older matches).
 - More covariates: injuries, transfers, schedule congestion (rest days).
@@ -270,13 +270,13 @@ Model / search defaults (inside the notebook):
 - Expanded hyper-parameter search and cross-league support.
 
 ---
-## References & Data
+## 📚 References & Data
 
-### Citing & Background
+### 📝 Citing & Background
 - Dixon & Coles (1997). *Modelling Association Football Scores and Inefficiencies in the Football Betting Market*. **JRSS C** 46(2): 265–280. DOI: **10.2307/2986290**.  
 - Related reading: https://royalsocietypublishing.org/doi/10.1098/rsos.210617
 
-### Data Sources
+### 🌐 Data Sources
 - [Football-Data.co.uk — England (EPL) match results & odds](https://www.football-data.co.uk/englandm.php)
 - [Fixture Download — Premier League results/fixtures 2024–25](https://fixturedownload.com/results/epl-2025)
 
@@ -284,7 +284,7 @@ Model / search defaults (inside the notebook):
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 PRs welcome — loaders, metrics (rank corr, Brier), visual polish, or tuning refactors.
 
@@ -296,13 +296,13 @@ PRs welcome — loaders, metrics (rank corr, Brier), visual polish, or tuning re
 
 ---
 
-## License
+## 📄 License
 
 Released under the **MIT License**. See [LICENSE](LICENSE).
 
 ---
 
-## Contact
+## 📬 Contact
 
 **Authors:** Anusha Sarla & Sanmesh Shintre  
 **Emails:** anusha.sarla@ucdconnect.ie · sanmesh.shintre@ucdconnect.ie
