@@ -164,6 +164,8 @@ Backtest/forecast fixture files:
 
 - **Data engineering**
   - Parse dates, cast goals to `int`, sort chronologically.
+  - Perform an **EDA check for missing values** and remove any invalid rows.
+  - Strip extra spaces from team names.
   - Collect all unique teams from training + fixture files to ensure complete parameter vectors.
 
 - **Elo (with decay)**
