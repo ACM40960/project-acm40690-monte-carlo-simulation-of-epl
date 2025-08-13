@@ -127,7 +127,16 @@ Manchester City,91
 Arsenal,89
 ...
 ```
+### Preprocessing & EDA:
+- Performed an Exploratory Data Analysis (EDA) step to:
 
+  - Check for missing values in critical columns (Date, HomeTeam, AwayTeam, FTHG, FTAG)
+
+  - Remove rows with missing or invalid values
+
+  - Strip extra spaces from team names
+
+  - Ensure goals are integers and non-negative
 Backtest/forecast fixture files:
 
 - Columns: `HomeTeam,AwayTeam` (no dates required for simulation).
