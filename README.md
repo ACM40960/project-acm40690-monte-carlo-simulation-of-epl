@@ -132,7 +132,7 @@ Backtest/forecast fixture files:
 
 - Columns: `HomeTeam,AwayTeam` (no dates required for simulation).
 
->**Name consistency:** Verify that team names appear in *all* training, fixture, and point files.  Results will suffer from simple mismatches ("Man City" vs. "Manchester City").  To lessen these discrepancies, we made a few consistent manual adjustments to our CSV file.
+>**Name consistency:** Verify that team names appear same in *all* training, fixture, and point files.  Results will suffer from simple mismatches ("Man City" vs. "Manchester City").  To lessen these discrepancies, we made a few consistent manual adjustments to our CSV file.
 
 ---
 
