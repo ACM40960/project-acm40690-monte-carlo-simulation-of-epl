@@ -40,7 +40,7 @@ Using a **Bivariate Poisson** (shared component) to model football matches and *
 ## 📜 Overview
 
 - **Scoring model:** To capture goal dependence, using a bivariate Poisson with a common latent component $$\lambda_3$$.  
-- **Team effects:** attack (α), defence (β), home advantage (η) with **ridge** regularization and sum-to-zero constraints on α and β.  
+- **Team effects:** attack (α), defence (β), and team-specific home advantage (η_h). We apply ridge regularization and sum-to-zero constraints to α and β; η_h is currently unpenalized.  
 - **Elo with decay:** pre-match `HomeElo` / `AwayElo`; Elo ratio scales goal rates via exponent **γ**.  
 - **Monte Carlo:** To simulate distributions over points, positions, and important outcomes, model entire seasons.
 - **Backtests:** Utilizing historical fixtures and points data, compare the simulated mean points to the actual to obtain **MAE**.
@@ -176,6 +176,7 @@ Backtest/forecast fixture files:
 - **Model fit (Bivariate Poisson)**
   - For match $(h,a)$:
     - $$\lambda_1 = \exp(\alpha_h - \beta_a + \eta_h)\cdot\left(\frac{\mathrm{Elo}_h}{\mathrm{Elo}_a}\right)^{\gamma}$$
+    - Here, η_h denotes a team-specific home-advantage term (one per home team).
     - $$\lambda_2 = \exp(\alpha_a - \beta_h)\cdot\left(\frac{\mathrm{Elo}_h}{\mathrm{Elo}_a}\right)^{-\gamma}$$
     - $$\lambda_3 = \exp(\theta)$$ shared component
   - Penalized log-likelihood with ridge on $\alpha,\beta$, fitted via **BFGS** with zero-mean constraints on $\alpha$ and $\beta$.
