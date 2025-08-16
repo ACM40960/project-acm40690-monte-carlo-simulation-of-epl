@@ -17,27 +17,27 @@ Using a **Bivariate Poisson** (shared component) to model football matches and *
 
 ## Table of Contents
 
-1. [Overview](#Overview)  
-2. [Project Structure](#Project-Structure)  
-3. [Installation](#installation)  
-4. [Data](#data)  
-5. [Quickstart](#quickstart)  
-6. [What It Does](#what-it-does)  
-7. [Outputs & Visualizations](#outputs--visualizations)
-8. [Project Poster](#project-poster)
-9. [Configuration](#configuration)  
-10. [Troubleshooting](#troubleshooting)  
-11. [Roadmap / Future Work](#roadmap--future-work)  
-12. [References & Data](#references--data)
-    - [Citing & Background](#citing--background)
-    - [Data Sources](#data-sources)
-13. [Contributing](#contributing)  
-14. [License](#license)  
-15. [Contact](#contact)
+1. [🧭 Overview](#overview)  
+2. [🗂️ Project Structure](#project-structure)  
+3. [⚙️ Installation](#installation)  
+4. [📊 Data](#data)  
+5. [🚀 Quickstart](#quickstart)  
+6. [💡 What It Does](#what-it-does)  
+7. [📈 Outputs & Visualizations](#outputs-visualizations)
+8. [🖼️ Project Poster](#project-poster)
+9. [🔧 Configuration](#configuration)  
+10. [🛠️ Troubleshooting](#troubleshooting)  
+11. [🗺️ Roadmap / Future Work](#roadmap-future-work)  
+12. [📚 References & Data](#references-data)
+    - [📝 Citing & Background](#citing-background)
+    - [🗃️ Data Sources](#data-sources)
+13. [🤝 Contributing](#contributing)  
+14. [📄 License](#license)  
+15. [✉️ Contact](#contact)
 
 ---
-
-## Overview
+<a id="overview"></a>
+## 🧭 Overview
 
 - **Scoring model:** To capture goal dependence, using a bivariate Poisson with a common latent component $$\lambda_3$$.  
 - **Team effects:** attack (α), defence (β), and team-specific home advantage (η_h). We apply ridge regularization and sum-to-zero constraints to α and β; η_h is currently unpenalized.  
@@ -47,7 +47,8 @@ Using a **Bivariate Poisson** (shared component) to model football matches and *
 
 ---
 
-## Project Structure
+<a id="project-structure"></a>
+## 🗂️ Project Structure
 
 ```plaintext
 project-acm40690-monte-carlo-simulation-of-epl/
@@ -72,7 +73,7 @@ project-acm40690-monte-carlo-simulation-of-epl/
 ```
 
 ---
-
+<a id="installation"></a>
 ## ⚙️ Installation
 
 Use a clean environment (venv or conda).
@@ -105,6 +106,7 @@ jupyter
 
 ---
 
+<a id="data"></a>
 ## 📊 Data
 
 We used football-data style match CSVs with:
@@ -145,6 +147,7 @@ Backtest/forecast fixture files:
 
 ---
 
+<a id="quickstart"></a>
 ## 🚀 Quickstart
 
 1. Open **`Final_Project.ipynb`** in Notebook/Jupyter Lab or VS Code.  
@@ -160,7 +163,8 @@ Backtest/forecast fixture files:
 
 ---
 
-## 🧠 What It Does
+<a id="what-it-does"></a>
+## 💡 What It Does
 
 - **Data engineering**
   - Parse dates, cast goals to `int`, sort chronologically.
@@ -194,6 +198,7 @@ Backtest/forecast fixture files:
 
 ---
 
+<a id="outputs-visualizations"></a>
 ## 📈 Outputs & Visualizations
 
 - The median simulated points for the current league cohort are shown in the **Predicted table** (printed).
@@ -211,11 +216,13 @@ Backtest/forecast fixture files:
 ![Outcome probabilities](images/relegation_output.png)
 ---
 ---
+<a id="project-poster"></a>
 ## 🖼️ Project Poster
 
 📄 [View the poster (PDF)](Poster.pdf)
 
 ---
+<a id="configuration"></a>
 ## 🔧 Configuration
 
 Edit the first **Config** cell in `Final_Project.ipynb` (example below mirrors the notebook variables):
@@ -249,7 +256,7 @@ Model / search defaults (inside the notebook):
 - Keep `N_SIMS` small while iterating; bump for final figures.
 
 ---
-
+<a id="troubleshooting"></a>
 ## 🛠️ Troubleshooting
 
 - **Seaborn theming**  
@@ -273,6 +280,7 @@ Model / search defaults (inside the notebook):
 
 ---
 
+<a id="roadmap-future-work"></a>
 ## 🗺️ Roadmap / Future Work
 
 - Dixon–Coles **time decay** in the likelihood (down-weight older matches).
@@ -282,13 +290,16 @@ Model / search defaults (inside the notebook):
 - Expanded hyper-parameter search and cross-league support.
 
 ---
+<a id="references-data"></a>
 ## 📚 References & Data
 
+<a id="citing-background"></a>
 ### 📝 Citing & Background
 - Dixon & Coles (1997). *Modelling Association Football Scores and Inefficiencies in the Football Betting Market*. **JRSS C** 46(2): 265–280. DOI: **10.2307/2986290**.  
 - Related reading: https://royalsocietypublishing.org/doi/10.1098/rsos.210617
 
-### 🌐 Data Sources
+<a id="data-sources"></a>
+### 🗃️ Data Sources
 - [Football-Data.co.uk — England (EPL) match results & odds](https://www.football-data.co.uk/englandm.php)
 - [Fixture Download — Premier League results/fixtures 2024–25](https://fixturedownload.com/results/epl-2025)
 
@@ -296,6 +307,7 @@ Model / search defaults (inside the notebook):
 
 ---
 
+<a id="contributing"></a>
 ## 🤝 Contributing
 
 PRs welcome — loaders, metrics (rank corr, Brier), visual polish, or tuning refactors.
@@ -308,13 +320,15 @@ PRs welcome — loaders, metrics (rank corr, Brier), visual polish, or tuning re
 
 ---
 
+
+<a id="license"></a>
 ## 📄 License
 
 Released under the **MIT License**. See [LICENSE](LICENSE).
 
 ---
-
-## 📬 Contact
+<a id="contact"></a>
+## ✉️ Contact
 
 **Authors:** Anusha Sarla & Sanmesh Shintre  
 **Emails:** anusha.sarla@ucdconnect.ie · sanmesh.shintre@ucdconnect.ie
