@@ -18,7 +18,7 @@ Using a **Bivariate Poisson** (shared component) to model football matches and *
 ## Table of Contents
 
 1. [Overview](#📜Overview)  
-2. [Project Structure](#🗂️Project-Structure)  
+2. [Project Structure](#Project-Structure)  
 3. [Installation](#installation)  
 4. [Data](#data)  
 5. [Quickstart](#quickstart)  
