@@ -8,7 +8,7 @@
 ![NumPy ≥1.24](https://img.shields.io/badge/NumPy-%E2%89%A51.24-2ECC71?logo=numpy&logoColor=white)
 ![Matplotlib ≥3.7](https://img.shields.io/badge/Matplotlib-%E2%89%A53.7-2ECC71?logo=matplotlib&logoColor=white)
 ![Pandas ≥2.0](https://img.shields.io/badge/Pandas-%E2%89%A52.0-6f42c1?logo=pandas&logoColor=white)
-![Seaborn ≥0.13](https://img.shields.io/badge/Seaborn-%E2%89%A50.13-6f42c1)
+![Seaborn ≥0.13](https://img.shields.io/badge/Seaborn-%E2%89%A50.13-6f42c1?logo=python&logoColor=white)
 
 
 Using a **Bivariate Poisson** (shared component) to model football matches and **Elo** as a covariate, a **Jupyter notebook** (`Final_Project.ipynb`) then performs **Monte Carlo simulations** to generate full-season distributions (points, positions, title/top-4/relegation probabilities). Includes lightweight backtesting.
