@@ -3,12 +3,12 @@
   <h1>Monte Carlo Simulation of English Premier League — using Bivariate Poisson + Elo</h1>
 </div>
 
-![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue)
-![NumPy ≥1.24](https://img.shields.io/badge/NumPy-%E2%89%A51.24-blue)
-![Pandas ≥2.0](https://img.shields.io/badge/Pandas-%E2%89%A52.0-blue)
-![SciPy ≥1.10](https://img.shields.io/badge/SciPy-%E2%89%A51.10-blue)
-![Matplotlib ≥3.7](https://img.shields.io/badge/Matplotlib-%E2%89%A53.7-blue)
-![Seaborn ≥0.13](https://img.shields.io/badge/Seaborn-%E2%89%A50.13-blue)
+![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-007ACC?logo=python&logoColor=white)
+![SciPy ≥1.10](https://img.shields.io/badge/SciPy-%E2%89%A51.10-007ACC?logo=scipy&logoColor=white)
+![NumPy ≥1.24](https://img.shields.io/badge/NumPy-%E2%89%A51.24-2ECC71?logo=numpy&logoColor=white)
+![Matplotlib ≥3.7](https://img.shields.io/badge/Matplotlib-%E2%89%A53.7-2ECC71?logo=matplotlib&logoColor=white)
+![Pandas ≥2.0](https://img.shields.io/badge/Pandas-%E2%89%A52.0-6f42c1?logo=pandas&logoColor=white)
+![Seaborn ≥0.13](https://img.shields.io/badge/Seaborn-%E2%89%A50.13-6f42c1)
 
 
 Using a **Bivariate Poisson** (shared component) to model football matches and **Elo** as a covariate, a **Jupyter notebook** (`Final_Project.ipynb`) then performs **Monte Carlo simulations** to generate full-season distributions (points, positions, title/top-4/relegation probabilities). Includes lightweight backtesting.
