@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="images/logo.png" alt="Project Logo" width="150" height="150" />
+  <img src="images/logo1.png" alt="Project Logo" width="300" height="200" />
   <h1>Monte Carlo Simulation of English Premier League — using Bivariate Poisson + Elo</h1>
 </div>
 
