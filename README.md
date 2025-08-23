@@ -79,8 +79,8 @@ Use a clean environment (venv or conda).
 
 ```bash
 # clone
-git clone https://github.com/your-org/your-repo.git
-cd your-repo
+git clone https://github.com/your-org/project-acm40690-monte-carlo-simulation-of-epl.git
+cd project-acm40690-monte-carlo-simulation-of-epl
 
 # create & activate venv
 python -m venv .venv
